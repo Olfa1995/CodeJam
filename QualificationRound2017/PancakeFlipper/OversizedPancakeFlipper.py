@@ -1,4 +1,5 @@
-import numpy as np
+import numpy as np;
+
 #Library that adds support for multi-dimensional arrays and matrices
 
 # Read Input File
@@ -17,16 +18,43 @@ def readLine(line):
    split  = line.split();
    return split
 
-def Flip (split):
+def chainConstructor (mainChain,flipSize):
     count = 0;
-    for val in split[0]:
-        if val == '-':
-            val = '+';
-            count +=1;
-    return [split[0], count];
+    listChain = list(mainChain);
+    newChain = '';
+    for i in range (len(listChain)):
+        if listChain[i]== '-':
+            listChain = flip (listChain,flipSize,i);
+            count +=1 ;
+        if listChain == "IMPOSSIBLE":
+            return listChain;
+        newChain = ''.join(listChain);
+    return [count, newChain];
+
+
+def flip (mainChain, flipSize, Index):
+    alternativeChain = list(mainChain);
+    if (Index+flipSize - 1) > len(alternativeChain):
+        newChain = "IMPOSSIBLE";
+        return newChain;
+    else:
+        for i in range (Index,Index+flipSize-1):
+            if (alternativeChain[i]=='+'):
+                alternativeChain[i]='-';
+            else:
+                alternativeChain [i] = '+';
+        newChain = ''.join(alternativeChain);
+        return newChain;
+
 
 split = readLine(Lines[0]);
-Flip = Flip (split);
-print (Flip);
+print(split);
+mainChain = split[0];
+flipsize = int(split [1]);
+Constructor = chainConstructor(mainChain,flipsize);
+print(Constructor);
+
+
+
 
 
